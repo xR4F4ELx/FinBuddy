@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { enableScreens } from 'react-native-screens'; // Import and enable screens
+import HomePage from './Pages/HomePage'; // Update the path to your HomePage
+import CameraPage from "./Pages/CameraPage.jsx";
+import DashboardPage from "./Pages/DashboardPage.jsx";
+
+// Enable screens for better performance
+enableScreens();
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator initialRouteName="HomePage">
+        <Tab.Screen name="HomePage" component={HomePage} />
+        <Tab.Screen name="CameraPage" component={CameraPage} />
+        <Tab.Screen name="DashboardPage" component={DashboardPage} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
