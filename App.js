@@ -1,35 +1,23 @@
-import React, { useState } from 'react';
-import 'react-native-gesture-handler';
+import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomePage from './pages/HomePage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { enableScreens } from 'react-native-screens'; // Import and enable screens
+import HomePage from './Pages/HomePage'; // Update the path to your HomePage
+import CameraPage from "./Pages/CameraPage.jsx";
+import DashboardPage from "./Pages/DashboardPage.jsx";
 
+// Enable screens for better performance
+enableScreens();
 
-const Stack = createStackNavigator();
-
-const App = () => {
-  // State to store the list of categories
-  const [categories, setCategories] = useState([]);
+const Tab = createBottomTabNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-          name="HomePage"
-          options={{ title: 'Inventory Tracker' }}
-        >
-          {props => (
-            <HomePage {...props} categories={categories} setCategories={setCategories} />
-          )}
-        </Stack.Screen>
-        <Stack.Screen 
-          name="CategoryItems"
-          component={CategoryItems}
-          options={({ route }) => ({ title: route.params.categoryName })}
-        />
-      </Stack.Navigator>
+      <Tab.Navigator initialRouteName="HomePage">
+        <Tab.Screen name="HomePage" component={HomePage} />
+        <Tab.Screen name="CameraPage" component={CameraPage} />
+        <Tab.Screen name="DashboardPage" component={DashboardPage} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
-};
-
-export default App;
+}
